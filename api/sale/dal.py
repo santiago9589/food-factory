@@ -7,23 +7,26 @@ from .. client.models import Client
 from fastapi import HTTPException
 from ..product.models import Product
 from ..sale.models import SellProduct,Sale
-from ..sale.schemas import SaleBase,SaleResponse
+from ..sale.schemas import SaleResponse,SaleBase
 from ..product.schemas import ProductUpdateBase
 async def create_sale(db: AsyncSession, sale: SaleBase):
 
     # Verificar vendedor
+     #TODO METODO PARA VERIFICAR
     result_seller = await db.execute(select(Seller).filter(Seller.id == sale.seller))
     seller = result_seller.scalar_one_or_none()
     if not seller:
         raise HTTPException(status_code=404, detail="Vendedor no encontrado")
 
     # Verificar cliente
+    #TODO METODO PARA VERIFICAR
     result_client = await db.execute(select(Client).filter(Client.id == sale.client))
     client = result_client.scalar_one_or_none()
     if not client:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
     # Crear venta
+    #TODO METODO PARA CREAR LA SALE
     new_sale = Sale(
         dateofBuy=sale.dateofBuy,
         total=sale.total,
@@ -55,6 +58,7 @@ async def create_sale(db: AsyncSession, sale: SaleBase):
         product.quantity -= product_data.quantity
 
         # Armar respuesta por producto
+        #TODO METODO PARA CREAR LISTA
         product_responses.append(
             ProductUpdateBase(
                 id=product.id,

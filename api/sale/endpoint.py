@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from . import schemas, dal 
 from database import AsyncSessionLocal
-
+from ..sale.schemas import SaleResponse,SaleBase
 
 router = APIRouter()
 
@@ -12,8 +12,8 @@ async def get_db():
         yield session
 
 
-@router.post("/", response_model=schemas.SaleBase)
-async def create(sale: schemas.SaleBase, db:AsyncSession = Depends(get_db)):
+@router.post("/", response_model=SaleResponse)
+async def create(sale: SaleBase, db:AsyncSession = Depends(get_db)):
     return await dal.create_sale(db, sale)
 
 
