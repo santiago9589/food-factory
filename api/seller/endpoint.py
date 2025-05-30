@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-import schemas, dal, database
+from . import schemas, dal 
 from database import AsyncSessionLocal
 
 
@@ -12,12 +12,9 @@ async def get_db():
         yield session
 
 
-@router.post("/", response_model=schemas.ClientBase)
-async def create(usuario: schemas.ClientBase, db:AsyncSession = Depends(get_db)):
-    return await dal.create_client(db, usuario)
-
-
-
+@router.post("/", response_model=schemas.SellerBase)
+async def create(seller: schemas.SellerBase, db:AsyncSession = Depends(get_db)):
+    return await dal.create_seller(db, seller)
 
 
 

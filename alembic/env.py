@@ -1,5 +1,9 @@
 from database import Base
-import models
+from api.client.models import Client
+from api.product.models import Product
+from api.sale.models import Sale
+from api.seller.models import Seller
+from api.sellproduct.models import SellProduct
 
 
 from logging.config import fileConfig
