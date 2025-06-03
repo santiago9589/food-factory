@@ -37,5 +37,24 @@ async def delete_one(db: AsyncSession, id: int):
 
     await db.delete(client)
     await db.commit()
-
     return "Se borró con éxito"
+
+async def update_one(db:AsyncSession,id:int,newDataClient:ClientBase):
+    # Verificar si el objeto existe
+    result = await db.execute(select(Client).filter(Client.id == id))
+    client = result.scalars().first()
+
+    if not client:
+        raise HTTPException(status_code=404, detail=f"Cliente con ID {id} no encontrado")
+    
+    client.address = newDataClient.address
+    client.name = newDataClient.name
+    client.lastname = newDataClient.lastname
+
+    await db.commit()
+
+    return "Se modifico el cliente con exito"
+
+
+
+

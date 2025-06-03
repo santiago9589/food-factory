@@ -20,7 +20,7 @@ async def create(client: schemas.ClientBase, db:AsyncSession = Depends(get_db)):
 
 @router.get("/",response_model=list[schemas.ClientBase])
 async def getAll( db:AsyncSession = Depends(get_db)):
-    return await dal.get_client(db)
+    return await dal.getAll(db)
 
 
 
@@ -29,4 +29,6 @@ async def deleteOne(id:int,db:AsyncSession = Depends(get_db)):
     return await dal.delete_one(db,id)
 
 
-#todo update
+@router.put("/update-{id}",response_model=str)
+async def updateOne(client: schemas.ClientBase,id:int,db:AsyncSession = Depends(get_db)):
+    return await dal.update_one(db,id,client)
