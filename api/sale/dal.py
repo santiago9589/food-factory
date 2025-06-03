@@ -9,6 +9,10 @@ from ..product.models import Product
 from ..sale.models import SellProduct,Sale
 from ..sale.schemas import SaleResponse,SaleBase
 from ..product.schemas import ProductUpdateBase
+from sqlalchemy.exc import SQLAlchemyError
+
+
+
 async def create_sale(db: AsyncSession, sale: SaleBase):
 
     # Verificar vendedor
@@ -80,4 +84,45 @@ async def create_sale(db: AsyncSession, sale: SaleBase):
         client=new_sale.client_id,
         products=product_responses
     )
+
+
+async def getAll(db: AsyncSession):
+    try:
+        result = await db.execute(select(Sale))
+        sales = result.scalars().all()
+        return sales
+    except SQLAlchemyError as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener sales: {str(e)}")
     
+
+async def delete_one(db: AsyncSession, id: int):
+    # Verificar si el objeto existe
+    result = await db.execute(select(Sale).filter(Sale.id == id))
+    sale = result.scalars().first()
+
+    if not sale:
+        raise HTTPException(status_code=404, detail=f"Venta con ID {id} no encontrado")
+
+    await db.delete(sale)
+    await db.commit()
+    return "Se borró con éxito"
+
+async def update_one(db:AsyncSession,id:int,newDataSale:SaleBase):
+    # Verificar si el objeto existe
+    result = await db.execute(select(Sale).filter(Sale.id == id))
+    sale = result.scalars().first()
+
+    if not sale:
+        raise HTTPException(status_code=404, detail=f"Venta con ID {id} no encontrado")
+    
+    sale.client_id = newDataSale.client
+    sale.seller_id = newDataSale.seller
+    sale.total = newDataSale.total
+    
+    
+    await db.commit()
+
+    return "Se modifico la venta con exito"
+
+
+

@@ -17,5 +17,7 @@ async def create(sale: SaleBase, db:AsyncSession = Depends(get_db)):
     return await dal.create_sale(db, sale)
 
 
-
+@router.get("/",response_model=list[SaleBase])
+async def getAll( db:AsyncSession = Depends(get_db)):
+    return await dal.getAll(db)
 
