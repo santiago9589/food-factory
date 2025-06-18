@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from . import schemas, dal 
 from database import AsyncSessionLocal
 from fastapi import Form
+from fastapi.responses import RedirectResponse
+from starlette.status import HTTP_303_SEE_OTHER
 
 router = APIRouter()
 
@@ -12,15 +14,19 @@ async def get_db():
         yield session
 
 
-@router.post("/", response_model=schemas.ClientBase)
+@router.post("/", response_class=RedirectResponse)
 async def create(
     name: str = Form(...),
     lastname: str = Form(...),
     dateofbirth: str = Form(...),
+    address: str = Form(...),
     db: AsyncSession = Depends(get_db)
 ):
-    client_data = schemas.ClientBase(name=name, lastname=lastname, dateofbirth=dateofbirth)
-    return await dal.create_client(db, client_data)
+    client_data = schemas.ClientBase(name=name, lastname=lastname, dateofbirth=dateofbirth,address=address)
+    
+    await dal.create_client(db, client_data)
+
+    return RedirectResponse(url="/app/clients/list", status_code=HTTP_303_SEE_OTHER)
 
 
 
