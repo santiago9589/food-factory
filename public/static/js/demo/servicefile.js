@@ -1,7 +1,6 @@
 function deleteClient(clientId) {
     if (confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
-        console.log("entro")
-        console.log(clientId)
+       
         fetch(`/client/delete-${clientId}`, {
             method: 'DELETE'
         })
@@ -14,7 +13,6 @@ function deleteClient(clientId) {
         });
     }
 }
-
 
 
 

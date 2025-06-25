@@ -110,14 +110,16 @@
                                                 <td>{{ client.dateofbirth }}</td>
                                                <td>
                                                 <div class="input-group-append ">
-                                                    <button class="btn btn-danger mr-2" 
+                                                <button class="btn btn-danger mr-2" 
                                                     onclick="deleteClient('{{ client.id }}')"
                                                     type="button">
-                                                <i class="fas fa-trash fa-sm"></i>
-                                            </button>
-                                                    <button class="btn btn-primary" type="button">
-                                                        <i class="fas fa-search fa-sm"></i>
-                                                    </button>
+                                                    <i class="fas fa-trash fa-sm"></i>
+                                                </button>
+                                                <button class="btn btn-primary" 
+                                                    type="button"
+                                                    onclick="updateClients('{{ client.id }}')">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
                                                 </div>
                                                </td>
                                                
@@ -198,7 +200,7 @@
         <script src="/public/static/js/demo/datatables-demo.js"></script>
 
         <script src="/public/static/js/demo/servicefile.js"></script>
-    
+        <script src="/public/static/js/demo/servicefile2.js"></script>
     </body>
     
 </div>

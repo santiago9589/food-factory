@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Actualizar cliente{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Clientes</h1>
+    
+
+    <body class="bg-gradient-primary">
+
+        <div class="container">
+    
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-7">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Modificar cliente</h1>
+                                </div>
+                                <form class="user" method="put" action="/client/update{{client.id}}">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                                name="name"
+                                                placeholder="First Name"
+                                                value="{{ client.name }}">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                                name="lastname"
+                                                placeholder="Last Name"
+                                                value="{{ client.lastname }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-control form-control-user" id="exampleDate"
+                                            name="dateofbirth"
+                                            placeholder="Date of bitrh"
+                                            value="{{ client.dateofbirth }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" id="exampleAddress"
+                                            name="address"
+                                            placeholder="Addrees"
+                                            value="{{ client.address }}">
+                                            
+                                    </div>
+                                    
+                                    <button  type="submit" class="btn btn-primary btn-user btn-block">
+                                        Modificar cliente
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+        <!-- Bootstrap core JavaScript-->
+        <script src="/public/static/vendor/jquery/jquery.min.js"></script>
+        <script src="/public/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+        <!-- Core plugin JavaScript-->
+        <script src="/public/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+        <!-- Custom scripts for all pages-->
+        <script src="/public/static/js/sb-admin-2.min.js"></script>
+        <script src="/public/static/js/demo/servicefile.js"></script>
+    
+    </body>
+
+        
+
+
+
+   
+
+     
+
+
+        </div>
+</div>
+{% endblock %}
+
+

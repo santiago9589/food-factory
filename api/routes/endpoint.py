@@ -42,6 +42,9 @@ def read_dashboard(request: Request):
 async def read_dashboard(request: Request,db:AsyncSession = Depends(get_db)):
     clients = await dal.getAll(db)
     return templates.TemplateResponse("listclients.html", {"request": request,"clients":clients})
-
+@router.get("/app/clients/update-{id}")
+async def read_dashboard(id: int, request: Request, db: AsyncSession = Depends(get_db)):
+    clientFound = await dal.getOne(db, id)  # assuming getOne requires db too
+    return templates.TemplateResponse("updateclients.html", {"request": request, "client": clientFound})
 
 

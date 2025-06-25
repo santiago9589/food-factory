@@ -56,5 +56,11 @@ async def update_one(db:AsyncSession,id:int,newDataClient:ClientBase):
     return "Se modifico el cliente con exito"
 
 
-
+async def getOne(db: AsyncSession, id: int):
+    try:
+        result = await db.execute(select(Client).where(Client.id == id))
+        client = result.scalar_one_or_none()  # ← Devuelve solo uno o None
+        return client
+    except SQLAlchemyError as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener cliente: {str(e)}")
 

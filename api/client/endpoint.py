@@ -29,11 +29,9 @@ async def create(
     return RedirectResponse(url="/app/clients/list", status_code=HTTP_303_SEE_OTHER)
 
 
-
 @router.get("/",response_model=list[schemas.ClientBase])
 async def getAll( db:AsyncSession = Depends(get_db)):
     return await dal.getAll(db)
-
 
 
 @router.delete("/delete-{id}",response_model=str)
